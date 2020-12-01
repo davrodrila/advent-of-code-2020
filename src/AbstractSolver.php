@@ -22,6 +22,9 @@ abstract class AbstractSolver
         $this->fileReader = $fileReader;
     }
 
+    public abstract function solvePartOne(): string;
+
+    public abstract function solvePartTwo(): string;
 
     public  function getFileName() {
         return static::$FILE_NAME;

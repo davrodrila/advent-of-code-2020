@@ -13,32 +13,67 @@ class DayOneSolver extends AbstractSolver
 
     private const SECOND_NUMBER = 1;
 
-    public function solve(): string
+    private const THIRD_NUMBER = 2;
+
+    /** @var array $numbers */
+    private array $numbers = [];
+
+    public function solvePartOne(): string
     {
         $numbers = $this->buildArray();
-        $entries = $this->findEntriesAddingTo2020($numbers);
+        $entries = $this->findTwoEntriesAddingTo2020($numbers);
         return $entries[self::FIRST_NUMBER] * $entries[self::SECOND_NUMBER];
     }
 
-    private function buildArray() {
-        $numbers = [];
-        foreach ($this->fileReader->readFile() as $line) {
-            $numbers[$line] = '';
-        }
+    public function solvePartTwo(): string
+    {
+        $numbers = $this->buildArray();
+        $entries = $this->findThreeEntriesAddingTo2020($numbers);
 
-        return $numbers;
+        return ($entries[self::FIRST_NUMBER] * $entries[self::SECOND_NUMBER] * $entries[self::THIRD_NUMBER]);
     }
 
-    private function findEntriesAddingTo2020(array $numbers): array
+    private function buildArray() {
+        if (empty($this->numbers)) {
+            foreach ($this->fileReader->readFile() as $line) {
+                $this->numbers[$line] = '';
+            }
+        }
+
+        return $this->numbers;
+    }
+
+    private function findTwoEntriesAddingTo2020(array $numbers): array
     {
         foreach ($numbers as $number => $value) {
-            $left = static::NUMBER_TO_ADD_TO - $number;
-            if (isset($numbers[$left])) {
+            $firstNumber = static::NUMBER_TO_ADD_TO - $number;
+            if (isset($numbers[$firstNumber])) {
                 return [
                     static::FIRST_NUMBER => $number,
-                    static::SECOND_NUMBER => $left
+                    static::SECOND_NUMBER => $firstNumber
                 ];
             }
         }
+    }
+
+    private function findThreeEntriesAddingTo2020(array $numbers): array
+    {
+        foreach ($numbers as $firstNumber => $value)
+        {
+            foreach ($numbers as $secondNumber => $secondValue) {
+                if ($firstNumber !== $secondNumber) {
+                    $thirdNumber = static::NUMBER_TO_ADD_TO - $firstNumber - $secondNumber;
+                    if (isset($numbers[$thirdNumber])) {
+                        return [
+                            static::FIRST_NUMBER => $firstNumber,
+                            static::SECOND_NUMBER => $secondNumber,
+                            static::THIRD_NUMBER => $thirdNumber
+                        ];
+                    }
+                }
+            }
+        }
+
+        return [];
     }
 }

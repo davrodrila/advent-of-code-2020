@@ -11,15 +11,14 @@ class Bootstrap
     /**
      * @param array $argv
      *
-     * @return string
+     * @return AbstractSolver
      */
-    public function runCommand(array $argv): string
+    public function obtainSolver(array $argv): AbstractSolver
     {
         if (isset($argv[1])) {
             $day = strtolower($argv[1]);
             if ($day === 'day1') {
-                $solver = new DayOneSolver(new FileReader("day1"));
-                return $solver->solve();
+                return new DayOneSolver(new FileReader("day1"));
             }
         } else {
             exit;
