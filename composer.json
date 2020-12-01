@@ -1,0 +1,6 @@
+{
+    "name": "davrodrila/advent-of-code-2020",
+    "type": "project",
+    "require": {},
+    "App\\": "src/"
+}
