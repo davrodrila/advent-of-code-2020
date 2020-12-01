@@ -2,14 +2,26 @@
 
 namespace App;
 
+use App\day1\DayOneSolver;
+
 class Bootstrap
 {
 
     /**
      * @param array $argv
+     *
+     * @return string
      */
-    public function runCommand(array $argv)
+    public function runCommand(array $argv): string
     {
-
+        if (isset($argv[1])) {
+            $day = strtolower($argv[1]);
+            if ($day === 'day1') {
+                $solver = new DayOneSolver();
+                return $solver->solve();
+            }
+        } else {
+            exit;
+        }
     }
 }

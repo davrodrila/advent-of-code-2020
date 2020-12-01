@@ -12,4 +12,5 @@ require __DIR__ . '/vendor/autoload.php';
 use App\Bootstrap;
 
 $app = new Bootstrap();
-$app->runCommand($argv);
+$result = $app->runCommand($argv);
+echo $result;
