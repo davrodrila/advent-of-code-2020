@@ -18,31 +18,32 @@ class DayOneSolver extends AbstractSolver
     /** @var array $numbers */
     private array $numbers = [];
 
+    /**
+     * @return string
+     */
     public function solvePartOne(): string
     {
-        $numbers = $this->buildArray();
-        $entries = $this->findTwoEntriesAddingTo2020($numbers);
+        $this->numbers = $this->mapFileToNumbersArray($this->numbers);
+        $entries = $this->findTwoEntriesAddingTo2020($this->numbers);
         return $entries[self::FIRST_NUMBER] * $entries[self::SECOND_NUMBER];
     }
 
+    /**
+     * @return string
+     */
     public function solvePartTwo(): string
     {
-        $numbers = $this->buildArray();
-        $entries = $this->findThreeEntriesAddingTo2020($numbers);
+        $this->numbers = $this->mapFileToNumbersArray($this->numbers);
+        $entries = $this->findThreeEntriesAddingTo2020($this->numbers);
 
         return ($entries[self::FIRST_NUMBER] * $entries[self::SECOND_NUMBER] * $entries[self::THIRD_NUMBER]);
     }
 
-    private function buildArray() {
-        if (empty($this->numbers)) {
-            foreach ($this->fileReader->readFile() as $line) {
-                $this->numbers[$line] = '';
-            }
-        }
 
-        return $this->numbers;
-    }
-
+    /**
+     * @param array $numbers
+     * @return array
+     */
     private function findTwoEntriesAddingTo2020(array $numbers): array
     {
         foreach ($numbers as $number => $value) {
@@ -54,8 +55,14 @@ class DayOneSolver extends AbstractSolver
                 ];
             }
         }
+
+        return [];
     }
 
+    /**
+     * @param array $numbers
+     * @return array
+     */
     private function findThreeEntriesAddingTo2020(array $numbers): array
     {
         foreach ($numbers as $firstNumber => $value)

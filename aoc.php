@@ -13,7 +13,9 @@ use App\Bootstrap;
 
 $app = new Bootstrap();
 $solver = $app->obtainSolver($argv);
-
-echo "Los datos del primer resultado son: " . $solver->solvePartOne() . PHP_EOL;
-
-echo "Los datos del segundo resultado son: " . $solver->solvePartTwo() . PHP_EOL;
+if ($solver) {
+    echo "Los datos del primer resultado son: " . $solver->solvePartOne() . PHP_EOL;
+    echo "Los datos del segundo resultado son: " . $solver->solvePartTwo() . PHP_EOL;
+} else {
+    echo "No se ha encontrado el día especificado por parámetro" . PHP_EOL;
+}

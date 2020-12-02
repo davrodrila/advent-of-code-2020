@@ -29,4 +29,25 @@ abstract class AbstractSolver
     public  function getFileName() {
         return static::$FILE_NAME;
     }
+
+
+    protected function mapFileToNumbersArray(array $numbers): array
+    {
+        if (empty($numbers)) {
+            $numbers = $this->fileToArrayAsKey();
+        }
+
+        return $numbers;
+    }
+
+    /**
+     * @return array
+     */
+    protected function fileToArrayAsKey(): array {
+        $numbers = [];
+        foreach ($this->fileReader->readFile() as $line) {
+            $numbers[$line] = '';
+        }
+        return $numbers;
+    }
 }
