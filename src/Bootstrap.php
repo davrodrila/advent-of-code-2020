@@ -4,6 +4,7 @@ namespace App;
 
 use App\day1\DayOneSolver;
 use App\day2\DayTwoSolver;
+use App\day3\DayThreeSolver;
 use App\File\FileReader;
 
 class Bootstrap
@@ -22,6 +23,8 @@ class Bootstrap
                 return new DayOneSolver(new FileReader("day1"));
             } elseif ($day === 'day2') {
                 return new DayTwoSolver(new FileReader("day2"));
+            } elseif ($day === 'day3') {
+                return new DayThreeSolver(new FileReader("day3"));
             }
         } else {
             exit;

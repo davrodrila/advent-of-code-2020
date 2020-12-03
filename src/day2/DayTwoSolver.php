@@ -36,7 +36,6 @@ class DayTwoSolver extends AbstractSolver
             $this->passwords = $this->buildPasswordCollection();
         }
         $validPasswords = 0;
-
         foreach($this->passwords as $password) {
             if ($password->isPartTwoValid()) {
                 $validPasswords++;
