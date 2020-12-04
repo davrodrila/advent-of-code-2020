@@ -19,7 +19,9 @@ class FileReader
         $this->file = fopen(__DIR__ . '/../../Resources/' . $day . '/' . static::FILE_NAME, 'r');
     }
 
-
+    /**
+     * @return Generator
+     */
     public function readFile(): Generator {
         while(($line = fgets($this->file)) !== false)
             yield rtrim($line, "\r\n");

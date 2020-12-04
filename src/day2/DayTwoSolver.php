@@ -54,15 +54,15 @@ class DayTwoSolver extends AbstractSolver
 
         foreach ($this->fileReader->readFile() as $line)
         {
-            $parsedLine = preg_split(FileStructure::LINE_SEPARATOR, $line);
+            $parsedLine = preg_split(ChallengeValues::LINE_SEPARATOR_REGEX, $line);
             $passwords[] = new Password(
-                $this->getMin($parsedLine[FileStructure::APPEARANCES]),
-                $this->getMax($parsedLine[FileStructure::APPEARANCES]),
+                $this->getMin($parsedLine[ChallengeValues::APPEARANCES]),
+                $this->getMax($parsedLine[ChallengeValues::APPEARANCES]),
                 preg_replace(
-                    FileStructure::APPEARING_STRING_SEPARATOR,
+                    ChallengeValues::APPEARING_STRING_SEPARATOR_REGEX,
                     '',
-                    $parsedLine[FileStructure::APPEARING_STRING]),
-                $parsedLine[FileStructure::PASSWORD]);
+                    $parsedLine[ChallengeValues::APPEARING_STRING]),
+                $parsedLine[ChallengeValues::PASSWORD]);
         }
 
         return $passwords;
@@ -74,9 +74,9 @@ class DayTwoSolver extends AbstractSolver
      */
     private function getMin(string $range): int
     {
-        $extractedRange = preg_split(FileStructure::RANGE_SEPARATOR, $range);
+        $extractedRange = preg_split(ChallengeValues::RANGE_SEPARATOR_REGEX, $range);
 
-        return intval($extractedRange[FileStructure::RANGE_MIN]);
+        return intval($extractedRange[ChallengeValues::RANGE_MIN]);
     }
 
     /**
@@ -85,8 +85,8 @@ class DayTwoSolver extends AbstractSolver
      */
     private function getMax(string $range): int
     {
-        $extractedRange = preg_split(FileStructure::RANGE_SEPARATOR, $range);
+        $extractedRange = preg_split(ChallengeValues::RANGE_SEPARATOR_REGEX, $range);
 
-        return intval($extractedRange[FileStructure::RANGE_MAX]);
+        return intval($extractedRange[ChallengeValues::RANGE_MAX]);
     }
 }

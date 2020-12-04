@@ -7,13 +7,6 @@ use App\AbstractSolver;
 class DayOneSolver extends AbstractSolver
 {
 
-    private const NUMBER_TO_ADD_TO = 2020;
-
-    private const FIRST_NUMBER = 0;
-
-    private const SECOND_NUMBER = 1;
-
-    private const THIRD_NUMBER = 2;
 
     /** @var array $numbers */
     private array $numbers = [];
@@ -25,7 +18,7 @@ class DayOneSolver extends AbstractSolver
     {
         $this->numbers = $this->mapFileToNumbersArray($this->numbers);
         $entries = $this->findTwoEntriesAddingTo2020($this->numbers);
-        return $entries[self::FIRST_NUMBER] * $entries[self::SECOND_NUMBER];
+        return $entries[ChallengeValues::FIRST_NUMBER] * $entries[ChallengeValues::SECOND_NUMBER];
     }
 
     /**
@@ -36,7 +29,7 @@ class DayOneSolver extends AbstractSolver
         $this->numbers = $this->mapFileToNumbersArray($this->numbers);
         $entries = $this->findThreeEntriesAddingTo2020($this->numbers);
 
-        return ($entries[self::FIRST_NUMBER] * $entries[self::SECOND_NUMBER] * $entries[self::THIRD_NUMBER]);
+        return ($entries[ChallengeValues::FIRST_NUMBER] * $entries[ChallengeValues::SECOND_NUMBER] * $entries[ChallengeValues::THIRD_NUMBER]);
     }
 
 
@@ -47,11 +40,11 @@ class DayOneSolver extends AbstractSolver
     private function findTwoEntriesAddingTo2020(array $numbers): array
     {
         foreach ($numbers as $number => $value) {
-            $firstNumber = static::NUMBER_TO_ADD_TO - $number;
+            $firstNumber = ChallengeValues::NUMBER_TO_ADD_TO - $number;
             if (isset($numbers[$firstNumber])) {
                 return [
-                    static::FIRST_NUMBER => $number,
-                    static::SECOND_NUMBER => $firstNumber
+                    ChallengeValues::FIRST_NUMBER => $number,
+                    ChallengeValues::SECOND_NUMBER => $firstNumber
                 ];
             }
         }
@@ -69,12 +62,12 @@ class DayOneSolver extends AbstractSolver
         {
             foreach ($numbers as $secondNumber => $secondValue) {
                 if ($firstNumber !== $secondNumber) {
-                    $thirdNumber = static::NUMBER_TO_ADD_TO - $firstNumber - $secondNumber;
+                    $thirdNumber = ChallengeValues::NUMBER_TO_ADD_TO - $firstNumber - $secondNumber;
                     if (isset($numbers[$thirdNumber])) {
                         return [
-                            static::FIRST_NUMBER => $firstNumber,
-                            static::SECOND_NUMBER => $secondNumber,
-                            static::THIRD_NUMBER => $thirdNumber
+                            ChallengeValues::FIRST_NUMBER => $firstNumber,
+                            ChallengeValues::SECOND_NUMBER => $secondNumber,
+                            ChallengeValues::THIRD_NUMBER => $thirdNumber
                         ];
                     }
                 }

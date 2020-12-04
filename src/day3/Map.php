@@ -57,7 +57,7 @@ class Map
      */
     public function isTree(): bool
     {
-        return $this->getCharacterAtCurrentPosition() === FileStructure::TREE_CHARACTER;
+        return $this->getCharacterAtCurrentPosition() === ChallengeValues::TREE_CHARACTER;
     }
 
 
@@ -66,7 +66,7 @@ class Map
      */
     public function isOpen(): bool
     {
-        return $this->getCharacterAtCurrentPosition() === FileStructure::OPEN_CHARACTER;
+        return $this->getCharacterAtCurrentPosition() === ChallengeValues::OPEN_CHARACTER;
     }
 
 
@@ -137,10 +137,10 @@ class Map
      */
     private function move(array $slope)
     {
-        if ($slope[FileStructure::MOVE_DIRECTION] === FileStructure::MOVE_RIGHT) {
-            $this->xPosition += $slope[FileStructure::MOVE_AMOUNT];
-        } elseif ($slope[FileStructure::MOVE_DIRECTION] === FileStructure::MOVE_DOWN) {
-            $this->yPosition += $slope[FileStructure::MOVE_AMOUNT];
+        if ($slope[ChallengeValues::MOVE_DIRECTION] === ChallengeValues::MOVE_RIGHT) {
+            $this->xPosition += $slope[ChallengeValues::MOVE_AMOUNT];
+        } elseif ($slope[ChallengeValues::MOVE_DIRECTION] === ChallengeValues::MOVE_DOWN) {
+            $this->yPosition += $slope[ChallengeValues::MOVE_AMOUNT];
         }
     }
 

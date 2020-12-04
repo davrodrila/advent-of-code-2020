@@ -14,8 +14,8 @@ use App\Bootstrap;
 $app = new Bootstrap();
 $solver = $app->obtainSolver($argv);
 if ($solver) {
-    echo "Los datos del primer resultado son: " . $solver->solvePartOne() . PHP_EOL;
-    echo "Los datos del segundo resultado son: " . $solver->solvePartTwo() . PHP_EOL;
+    echo "First part data: " . $solver->solvePartOne() . PHP_EOL;
+    echo "Second part data: " . $solver->solvePartTwo() . PHP_EOL;
 } else {
-    echo "No se ha encontrado el día especificado por parámetro" . PHP_EOL;
+    echo "Provided day not found! Perhaps I haven't gotten around doing that day yet, or maybe you are not writing it correctly! Remember to use numbers for the day e.g: day1, day2, etc..." . PHP_EOL;
 }

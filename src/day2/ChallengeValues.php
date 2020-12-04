@@ -2,7 +2,7 @@
 
 namespace App\day2;
 
-class FileStructure
+class ChallengeValues
 {
     public const APPEARANCES = 0;
 
@@ -10,13 +10,13 @@ class FileStructure
 
     public const PASSWORD = 2;
 
-    public const RANGE_SEPARATOR = "/-/";
+    public const RANGE_SEPARATOR_REGEX = "/-/";
 
-    public const APPEARING_STRING_SEPARATOR = '/:/';
+    public const APPEARING_STRING_SEPARATOR_REGEX = '/:/';
 
     public const RANGE_MIN = 0;
 
     public const RANGE_MAX = 1;
 
-    public const LINE_SEPARATOR = "/\\s/";
+    public const LINE_SEPARATOR_REGEX = "/\\s/";
 }

@@ -4,7 +4,7 @@
 namespace App\day3;
 
 
-class FileStructure
+class ChallengeValues
 {
     public const TREE_CHARACTER = '#';
 

@@ -59,12 +59,12 @@ class DayThreeSolver extends AbstractSolver
     {
         return [
             [
-                FileStructure::MOVE_DIRECTION => FileStructure::MOVE_RIGHT,
-                FileStructure::MOVE_AMOUNT => 3
+                ChallengeValues::MOVE_DIRECTION => ChallengeValues::MOVE_RIGHT,
+                ChallengeValues::MOVE_AMOUNT => 3
             ],
             [
-                FileStructure::MOVE_DIRECTION => FileStructure::MOVE_DOWN,
-                FileStructure::MOVE_AMOUNT => 1
+                ChallengeValues::MOVE_DIRECTION => ChallengeValues::MOVE_DOWN,
+                ChallengeValues::MOVE_AMOUNT => 1
             ]
 
         ];
@@ -78,48 +78,48 @@ class DayThreeSolver extends AbstractSolver
         return [
             [
                 [
-                FileStructure::MOVE_DIRECTION => FileStructure::MOVE_RIGHT,
-                FileStructure::MOVE_AMOUNT => 1
+                ChallengeValues::MOVE_DIRECTION => ChallengeValues::MOVE_RIGHT,
+                ChallengeValues::MOVE_AMOUNT => 1
                 ],
                 [
-                    FileStructure::MOVE_DIRECTION => FileStructure::MOVE_DOWN,
-                    FileStructure::MOVE_AMOUNT => 1
+                    ChallengeValues::MOVE_DIRECTION => ChallengeValues::MOVE_DOWN,
+                    ChallengeValues::MOVE_AMOUNT => 1
                 ],
             ],[
                 [
-                    FileStructure::MOVE_DIRECTION => FileStructure::MOVE_RIGHT,
-                    FileStructure::MOVE_AMOUNT => 3
+                    ChallengeValues::MOVE_DIRECTION => ChallengeValues::MOVE_RIGHT,
+                    ChallengeValues::MOVE_AMOUNT => 3
                 ],
                 [
-                    FileStructure::MOVE_DIRECTION => FileStructure::MOVE_DOWN,
-                    FileStructure::MOVE_AMOUNT => 1
+                    ChallengeValues::MOVE_DIRECTION => ChallengeValues::MOVE_DOWN,
+                    ChallengeValues::MOVE_AMOUNT => 1
                 ]
             ], [
                 [
-                    FileStructure::MOVE_DIRECTION => FileStructure::MOVE_RIGHT,
-                    FileStructure::MOVE_AMOUNT => 5,
+                    ChallengeValues::MOVE_DIRECTION => ChallengeValues::MOVE_RIGHT,
+                    ChallengeValues::MOVE_AMOUNT => 5,
                 ],
                 [
-                    FileStructure::MOVE_DIRECTION => FileStructure::MOVE_DOWN,
-                    FileStructure::MOVE_AMOUNT => 1
+                    ChallengeValues::MOVE_DIRECTION => ChallengeValues::MOVE_DOWN,
+                    ChallengeValues::MOVE_AMOUNT => 1
                 ]
             ], [
                 [
-                    FileStructure::MOVE_DIRECTION => FileStructure::MOVE_RIGHT,
-                    FileStructure::MOVE_AMOUNT => 7,
+                    ChallengeValues::MOVE_DIRECTION => ChallengeValues::MOVE_RIGHT,
+                    ChallengeValues::MOVE_AMOUNT => 7,
                 ],
                 [
-                    FileStructure::MOVE_DIRECTION => FileStructure::MOVE_DOWN,
-                    FileStructure::MOVE_AMOUNT => 1
+                    ChallengeValues::MOVE_DIRECTION => ChallengeValues::MOVE_DOWN,
+                    ChallengeValues::MOVE_AMOUNT => 1
                 ]
             ], [
                 [
-                    FileStructure::MOVE_DIRECTION => FileStructure::MOVE_RIGHT,
-                    FileStructure::MOVE_AMOUNT => 1,
+                    ChallengeValues::MOVE_DIRECTION => ChallengeValues::MOVE_RIGHT,
+                    ChallengeValues::MOVE_AMOUNT => 1,
                 ],
                 [
-                    FileStructure::MOVE_DIRECTION => FileStructure::MOVE_DOWN,
-                    FileStructure::MOVE_AMOUNT => 2
+                    ChallengeValues::MOVE_DIRECTION => ChallengeValues::MOVE_DOWN,
+                    ChallengeValues::MOVE_AMOUNT => 2
                 ]
             ]
         ];

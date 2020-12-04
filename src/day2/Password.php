@@ -4,12 +4,16 @@ namespace App\day2;
 
 class Password
 {
+    /** @var string $minAppearances */
     private string $minAppearances;
 
+    /** @var string $maxAppearances */
     private string $maxAppearances;
 
+    /** @var string $recurringString */
     private string $recurringString;
 
+    /** @var string $password */
     private string $password;
 
     /**

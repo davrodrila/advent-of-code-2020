@@ -5,10 +5,17 @@ namespace App;
 use App\day1\DayOneSolver;
 use App\day2\DayTwoSolver;
 use App\day3\DayThreeSolver;
+use App\day4\DayFourSolver;
 use App\File\FileReader;
 
 class Bootstrap
 {
+    private const PARAM_TO_CLASS = [
+        'day1' => DayOneSolver::class,
+        'day2' => DayTwoSolver::class,
+        'day3' => DayThreeSolver::class,
+        'day4' => DayFourSolver::class
+    ];
 
     /**
      * @param array $argv
@@ -18,16 +25,11 @@ class Bootstrap
     public function obtainSolver(array $argv): ?AbstractSolver
     {
         if (isset($argv[1])) {
-            $day = strtolower($argv[1]);
-            if ($day === 'day1') {
-                return new DayOneSolver(new FileReader("day1"));
-            } elseif ($day === 'day2') {
-                return new DayTwoSolver(new FileReader("day2"));
-            } elseif ($day === 'day3') {
-                return new DayThreeSolver(new FileReader("day3"));
+            $requestedSolver = strtolower($argv[1]);
+            if (isset(static::PARAM_TO_CLASS[$requestedSolver])) {
+                $solverClass = static::PARAM_TO_CLASS[$requestedSolver];
+                return new $solverClass(new FileReader($requestedSolver));
             }
-        } else {
-            exit;
         }
 
         return null;
