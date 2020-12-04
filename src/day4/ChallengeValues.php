@@ -42,6 +42,8 @@ class ChallengeValues
 
     public const PASSPORT_ID_KEY = 'pid';
 
+    public const PASSPORT_ID_LENGTH = 9;
+
     public const COUNTRY_ID_KEY = 'cid';
 
     public const PASSPORT_DATA_SEPARATOR_REGEX = '/\\s/';

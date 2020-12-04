@@ -41,8 +41,16 @@ class Passport
      * @param string|null $passportId
      * @param string|null $countryId
      */
-    public function __construct(?string $birthYear, ?string $issueYear, ?string $expirationYear, ?string $height, ?string $hairColor, ?string $eyeColor, ?string $passportId, ?string $countryId)
-    {
+    public function __construct(
+        ?string $birthYear,
+        ?string $issueYear,
+        ?string $expirationYear,
+        ?string $height,
+        ?string $hairColor,
+        ?string $eyeColor,
+        ?string $passportId,
+        ?string $countryId
+    ) {
         $this->birthYear = $birthYear;
         $this->issueYear = $issueYear;
         $this->expirationYear = $expirationYear;
@@ -268,11 +276,11 @@ class Passport
 
         return false;
     }
-
     /**
      * @return bool
      */
     private function isPassportIdValid(): bool {
-        return ($this->passportId && (strlen($this->passportId) === 9));
+        return ($this->passportId && (strlen($this->passportId) === ChallengeValues::PASSPORT_ID_LENGTH));
     }
+
 }
