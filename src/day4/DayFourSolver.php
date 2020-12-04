@@ -70,7 +70,8 @@ class DayFourSolver extends AbstractSolver
             }
         }
 
-        # Remember to process the data for the current rawData block! Otherwise you will be missing one passport structure
+        # Remember to process the data for the current rawData block!
+        # Otherwise you will be missing one passport structure
         $this->processRawData($rawData, $passports);
 
         return $passports;

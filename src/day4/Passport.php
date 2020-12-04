@@ -216,14 +216,18 @@ class Passport
      * @return bool
      */
     private function isIssuedYearValid(): bool {
-        return ($this->issueYear && $this->issueYear >= ChallengeValues::ISSUE_YEAR_START && $this->issueYear <= ChallengeValues::ISSUE_YEAR_END);
+        return ($this->issueYear &&
+            $this->issueYear >= ChallengeValues::ISSUE_YEAR_START &&
+            $this->issueYear <= ChallengeValues::ISSUE_YEAR_END);
     }
 
     /**
      * @return bool
      */
     private function isExpirationYearValid(): bool {
-        return ($this->expirationYear && $this->expirationYear >= ChallengeValues::EXPIRATION_YEAR_START && $this->expirationYear <= ChallengeValues::EXPIRATION_YEAR_END);
+        return ($this->expirationYear &&
+            $this->expirationYear >= ChallengeValues::EXPIRATION_YEAR_START &&
+            $this->expirationYear <= ChallengeValues::EXPIRATION_YEAR_END);
     }
 
     /**
@@ -232,14 +236,24 @@ class Passport
     private function isHeightValid(): bool {
         if ($this->height) {
             if (strpos($this->height, ChallengeValues::CENTIMETER_STRING) !== false) {
-               $result = str_replace(ChallengeValues::CENTIMETER_STRING, '', $this->height);
-               if ($result >=ChallengeValues::CM_MIN_HEIGHT && $result <= ChallengeValues::CM_MAX_HEIGHT) {
+               $result = str_replace(
+                   ChallengeValues::CENTIMETER_STRING,
+                   '',
+                   $this->height
+               );
+               if ($result >=ChallengeValues::CM_MIN_HEIGHT &&
+                   $result <= ChallengeValues::CM_MAX_HEIGHT) {
                    return true;
                }
             }
             if (strpos($this->height, ChallengeValues::INCHES_STRING) !== false) {
-                $result = str_replace(ChallengeValues::CENTIMETER_STRING, '', $this->height);
-                if ($result >= ChallengeValues::IN_MIN_HEIGHT && $result <= ChallengeValues::IN_MAX_HEIGHT) {
+                $result = str_replace(
+                    ChallengeValues::CENTIMETER_STRING,
+                    '',
+                    $this->height
+                );
+                if ($result >= ChallengeValues::IN_MIN_HEIGHT &&
+                    $result <= ChallengeValues::IN_MAX_HEIGHT) {
                     return true;
                 }
             }
@@ -282,5 +296,4 @@ class Passport
     private function isPassportIdValid(): bool {
         return ($this->passportId && (strlen($this->passportId) === ChallengeValues::PASSPORT_ID_LENGTH));
     }
-
 }
