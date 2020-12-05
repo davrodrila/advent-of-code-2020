@@ -43,6 +43,18 @@ abstract class AbstractSolver
     /**
      * @return array
      */
+    protected function fileToArrayAsValue(): array {
+        $lines  = [];
+        foreach ($this->fileReader->readFile() as $line) {
+            $lines[] = $line;
+        }
+
+        return $lines;
+    }
+
+    /**
+     * @return array
+     */
     protected function fileToArrayAsKey(): array {
         $numbers = [];
         foreach ($this->fileReader->readFile() as $line) {

@@ -10,13 +10,17 @@ class FileReader
 {
     private const FILE_NAME = 'input.txt';
 
+    private const RESOURCES_FOLDER = 'Resources';
+
     private $file;
+
     /**
      * FileReader constructor.
      */
     public function __construct(string $day)
     {
-        $this->file = fopen(__DIR__ . '/../../Resources/' . $day . '/' . static::FILE_NAME, 'r');
+        $this->file = fopen(__DIR__ . '/../../' .
+            static::RESOURCES_FOLDER . '/' . $day . '/' . static::FILE_NAME, 'r');
     }
 
     /**

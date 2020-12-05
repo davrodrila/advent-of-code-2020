@@ -6,6 +6,7 @@ use App\day1\DayOneSolver;
 use App\day2\DayTwoSolver;
 use App\day3\DayThreeSolver;
 use App\day4\DayFourSolver;
+use App\day5\DayFiveSolver;
 use App\File\FileReader;
 
 class Bootstrap
@@ -14,7 +15,8 @@ class Bootstrap
         'day1' => DayOneSolver::class,
         'day2' => DayTwoSolver::class,
         'day3' => DayThreeSolver::class,
-        'day4' => DayFourSolver::class
+        'day4' => DayFourSolver::class,
+        'day5' => DayFiveSolver::class,
     ];
 
     /**
