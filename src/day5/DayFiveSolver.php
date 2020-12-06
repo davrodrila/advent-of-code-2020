@@ -3,7 +3,6 @@
 
 namespace App\day5;
 
-
 use App\AbstractSolver;
 
 class DayFiveSolver extends AbstractSolver
@@ -14,6 +13,9 @@ class DayFiveSolver extends AbstractSolver
     /** @var Seat[] $seats */
     private array $seats;
 
+    /**
+     * @return string
+     */
     public function solvePartOne(): string
     {
         $this->initialize();
@@ -41,6 +43,10 @@ class DayFiveSolver extends AbstractSolver
         return new Seat($row, $column);
     }
 
+    /**
+     * @param string $boardingPassTicket
+     * @return int
+     */
     private function getRow(string $boardingPassTicket): int
     {
         $rowBinaryString = substr(
@@ -57,6 +63,10 @@ class DayFiveSolver extends AbstractSolver
         );
     }
 
+    /**
+     * @param string $boardingPassTicket
+     * @return int
+     */
     private function getColumn(string $boardingPassTicket): int
     {
         $columnBinaryString = substr(
@@ -114,6 +124,9 @@ class DayFiveSolver extends AbstractSolver
         );
     }
 
+    /**
+     *
+     */
     protected function initialize()
     {
         if (!$this->boardingTickets) {
@@ -121,7 +134,9 @@ class DayFiveSolver extends AbstractSolver
         }
     }
 
-
+    /**
+     * @return string
+     */
     public function solvePartTwo(): string
     {
         $this->initialize();

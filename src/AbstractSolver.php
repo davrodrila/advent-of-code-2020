@@ -62,4 +62,20 @@ abstract class AbstractSolver
         }
         return $numbers;
     }
+
+    protected function fileToArrayGroupedUntilBlankLine(): array {
+        $lines = [];
+        $i=0;
+        $lines[$i] = [];
+        foreach ($this->fileReader->readFile() as $line) {
+            if (empty($line)) {
+                $i++;
+                $lines[$i] = [];
+            } else {
+                $lines[$i][] = $line;
+            }
+        }
+
+        return $lines;
+    }
 }

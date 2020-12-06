@@ -8,19 +8,29 @@ use Generator;
 
 class FileReader
 {
-    private const FILE_NAME = 'input.txt';
+    protected const DEFAULT_FILE_NAME = 'input.txt';
 
-    private const RESOURCES_FOLDER = 'Resources';
+    protected const DEFAULT_RESOURCES_FOLDER = 'Resources';
 
     private $file;
 
     /**
      * FileReader constructor.
+     * @param string $day
+     * @param string|null $fileName
+     * @param string|null $resourcesFolder
      */
-    public function __construct(string $day)
+    public function __construct(string $day, ?string $fileName = '', ?string $resourcesFolder = '' )
     {
+        if (!$fileName) {
+            $fileName = static::DEFAULT_FILE_NAME;
+        }
+        if (!$resourcesFolder) {
+            $resourcesFolder = static::DEFAULT_RESOURCES_FOLDER;
+        }
+
         $this->file = fopen(__DIR__ . '/../../' .
-            static::RESOURCES_FOLDER . '/' . $day . '/' . static::FILE_NAME, 'r');
+            $resourcesFolder . '/' . $day . '/' . $fileName, 'r');
     }
 
     /**

@@ -1,7 +1,7 @@
 <?php
 
 
-namespace src\day5;
+namespace unit\day5;
 
 
 use App\day5\DayFiveSolver;
