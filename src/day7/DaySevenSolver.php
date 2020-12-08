@@ -13,6 +13,8 @@ class DaySevenSolver extends AbstractSolver
     /** @var Bag[]|array $bags */
     private array $bags;
 
+    /** @var array $quantityCache */
+    private array $quantityCache = [];
     /**
      * DaySevenSolver constructor.
      * @param FileReader $fileReader
@@ -88,6 +90,7 @@ class DaySevenSolver extends AbstractSolver
                     if (!in_array($bag->getColor(), $baggableBag)) {
                         $baggableBag[$bag->getColor()] = $bag;
                     }
+
                     $additionalBagableBags = $this->getBagsThatCanCarryTheBag($bag);
                     foreach ($additionalBagableBags as $additionalBagableBag) {
                         $baggableBag[$additionalBagableBag->getColor()] = $additionalBagableBag;
@@ -100,42 +103,44 @@ class DaySevenSolver extends AbstractSolver
     }
 
     /**
-     * @param Bag $bag
-     *
-     * @return array
-     */
-    private function getValidBagsForBag(Bag $bag): array {
-        $suitableBags = [$bag];
-
-        foreach ($this->bags as $bag)
-        {
-            foreach ($suitableBags as $baggableBag) {
-                if ($bag->canContain($baggableBag)) {
-
-                }
-            }
-
-        }
-
-        return $suitableBags;
-    }
-
-    /**
      * @return string
      */
     public function solvePartTwo(): string
     {
-        $bags = $this->getBagsThatCanCarryTheBag($this->bags[ChallengeValues::BAG_TO_RESOLVE]);
-        $result = 0;
+        $bag = $this->bags[ChallengeValues::BAG_TO_RESOLVE];
 
-        foreach ($bags as $bag) {
-            $bag = $this->bags[$bag->getColor()];
-            if ($bag->hasBagRules()) {
-                foreach ($bag->getBagRules() as $rule) {
-                    $result += $rule->getQuantity();
-                }
+        return ($this->calculateBagsNeededForABag($bag));
+    }
+
+    /**
+     * @param Bag $bag
+     *
+     * @return int
+     */
+    private function calculateBagsNeededForABag(Bag $bag): int
+    {
+        $quantity = 0;
+        if ($bag->hasBagRules()) {
+
+            foreach ($bag->getBagRules() as $rule) {
+                $quantity += $rule->getQuantity() + ($this->resolveRule($rule)*$rule->getQuantity());
             }
         }
-        return $result;
+
+        return $quantity;
+    }
+
+    private function resolveRule(BagRule $rule)
+    {
+        $bag = $this->bags[$rule->getColor()];
+        if ($bag->hasBagRules()) {
+            $quantity = 0;
+            foreach ($bag->getBagRules() as $subRule) {
+                $quantity += $subRule->getQuantity() + ($this->resolveRule($subRule) * $subRule->getQuantity());
+            }
+            return $quantity;
+        } else {
+            return 0;
+        }
     }
 }
