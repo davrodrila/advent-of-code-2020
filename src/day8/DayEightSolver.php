@@ -42,7 +42,6 @@ class DayEightSolver extends AbstractSolver
     public function solvePartTwo(): string
     {
         $handheldSystem = new HandheldSystem($this->program, true);
-        $programMessage = '';
 
         $handheldSystem->run();
 

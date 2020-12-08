@@ -57,15 +57,24 @@ class HandheldSystem
         $this->alreadyChangedExecution = false;
     }
 
-    public function run() {
+    /**
+     * @param bool $debug
+     */
+    public function run(bool $debug = false) {
         $executions = 1;
         do {
-            var_dump('Attempting execution: ' . $executions);
-            var_dump('Nopped jumps at PC:  ' . json_encode($this->jumpsChangedToNops));
-            var_dump('Jumped nops at PC:  ' . json_encode($this->nopsChangedToJumps));
+            if ($debug) {
+                var_dump('Attempting execution: ' . $executions);
+                var_dump('Nopped jumps at PC:  ' . json_encode($this->jumpsChangedToNops));
+                var_dump('Jumped nops at PC:  ' . json_encode($this->nopsChangedToJumps));
+            }
             $this->reset($this->program);
             while ($this->isSystemRunning()) {
-                var_dump($this->step());
+                if ($debug) {
+                    var_dump($this->step());
+                } else {
+                    $this->step();
+                }
             }
             $executions++;
         } while (!$this->hasExecutionFinishedWithoutErrors());
@@ -85,7 +94,7 @@ class HandheldSystem
                 return sprintf("Attempted to execute an instruction that was already executed once. Did it with PC %s and accumulator %s", $this->programCounter, $this->accumulator);
             }
             $this->finishExecution();
-            return sprintf("Program counter is out of bounds! This probably means the program is done. Attempted to access %s with accumulator %s", $this->programCounter, $this->accumulator);
+            return sprintf("Accumulator %s", $this->accumulator);
         }
 
         return sprintf("Attempted to step once the program was already finished with PC %s and accumulator %s", $this->programCounter, $this->accumulator);
@@ -111,18 +120,14 @@ class HandheldSystem
     /**
      * @param int $modifier
      *
-     * @param bool $forcedOpcode
      * @return string
      */
-    private function doJmp(int $modifier, bool $forcedOpcode = false): string {
+    private function doJmp(int $modifier): string {
 
-        if (!$forcedOpcode &&
-            !$this->alreadyChangedExecution &&
-            !in_array($this->programCounter, $this->jumpsChangedToNops)
-            && $this->loopedJumpPrevention) {
+        if ($this->shouldAttemptToModify($modifier, $this->jumpsChangedToNops)) {
                 $this->jumpsChangedToNops[] = $this->programCounter;
                 $this->alreadyChangedExecution = true;
-                return sprintf("Changed jump to %s", $this->doNop($modifier, true));
+                return sprintf("Changed jump to %s", $this->doNop($modifier));
         }
 
         $this->programCounter += $modifier;
@@ -133,21 +138,30 @@ class HandheldSystem
     /**
      * @param int $modifier
      *
-     * @param bool $forceOpcode
      * @return string
      */
-    private function doNop(int $modifier, bool $forceOpcode = false): string {
-        if (!$forceOpcode && $modifier !== 0 &&
-            !$this->alreadyChangedExecution &&
-            !in_array($this->programCounter, $this->nopsChangedToJumps) && $this->loopedJumpPrevention) {
+    private function doNop(int $modifier): string {
+        if ($this->shouldAttemptToModify($modifier, $this->nopsChangedToJumps)) {
             $this->nopsChangedToJumps[] = $this->programCounter;
             $this->alreadyChangedExecution = true;
-            return sprintf("Changed nop to %s", $this->doJmp($modifier, true));
+            return sprintf("Changed nop to %s", $this->doJmp($modifier));
         }
 
         $this->programCounter++;
 
         return sprintf('Doing nothing');
+    }
+
+    /**
+     * @param int $modifier
+     * @param array $modifications
+     *
+     * @return bool
+     */
+    private function shouldAttemptToModify(int $modifier, array $modifications) {
+        return ($modifier !== 0 &&
+            !$this->alreadyChangedExecution && !in_array($this->programCounter, $modifications)
+            && $this->loopedJumpPrevention);
     }
 
     /**
@@ -162,11 +176,11 @@ class HandheldSystem
         return sprintf('Accumulator is now %s at PC %s', $this->accumulator, $this->programCounter);
     }
 
-    private function finishExecution() {
+    private function finishExecution(): void {
         $this->state = static::STATE_FINISHED;
     }
 
-    private function finishExecutionWithLoops() {
+    private function finishExecutionWithLoops(): void {
         $this->state = static::STATE_FINISHED_BY_LOOP_ERROR;
     }
 
@@ -183,7 +197,7 @@ class HandheldSystem
 
     public function getErrors(): string {
         if ($this->state === static::STATE_FINISHED_BY_LOOP_ERROR) {
-            return sprintf("Program has run into an infinite loop at PC %s with accumulator value %s", $this->programCounter, $this->accumulator);
+            return sprintf("Program has run into repeated execution at PC %s with accumulator value %s", $this->programCounter, $this->accumulator);
         }
 
         return sprintf("Unknown error");
