@@ -6,6 +6,7 @@ namespace App\day6;
 
 use App\AbstractSolver;
 use App\File\FileReader;
+use Generator;
 
 class DaySixSolver extends AbstractSolver
 {
@@ -29,7 +30,6 @@ class DaySixSolver extends AbstractSolver
      */
     public function solvePartOne(): string
     {
-
         return array_sum(
             $this->processAnswersGivenByAnyone(
                 $this->mergeGroupsOnOneLine(
@@ -59,7 +59,7 @@ class DaySixSolver extends AbstractSolver
     public function processAnswersGivenByAnyone(array $groups): array {
         $answerCount = $this->initializeAnswerCountArray();
         foreach ($groups as $group) {
-            foreach (str_split(ChallengeValues::ABECEDARY) as $question ) {
+            foreach ($this->navigateQuestions() as $question ) {
                 if (strpos($group, $question) !== false) {
                     $answerCount[$question]++;
                 }
@@ -80,7 +80,7 @@ class DaySixSolver extends AbstractSolver
     public function processAnswersGivenByEveryone(array $groups): array {
         $answerCount = $this->initializeAnswerCountArray();
         foreach($groups as $group) {
-            foreach (str_split(ChallengeValues::ABECEDARY) as $question) {
+            foreach ($this->navigateQuestions() as $question) {
                 $isAnswered = true;
                 foreach ($group as $answer) {
                     if (strpos($answer, $question) === false) {
@@ -94,6 +94,15 @@ class DaySixSolver extends AbstractSolver
         }
 
         return $answerCount;
+    }
+
+    /**
+     * @return Generator
+     */
+    private function navigateQuestions(): Generator {
+        foreach (str_split(ChallengeValues::ABECEDARY) as $question) {
+            yield $question;
+        }
     }
 
     /**
