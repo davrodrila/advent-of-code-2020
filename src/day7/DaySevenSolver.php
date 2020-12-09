@@ -13,8 +13,6 @@ class DaySevenSolver extends AbstractSolver
     /** @var Bag[]|array $bags */
     private array $bags;
 
-    /** @var array $quantityCache */
-    private array $quantityCache = [];
     /**
      * DaySevenSolver constructor.
      * @param FileReader $fileReader
@@ -121,9 +119,8 @@ class DaySevenSolver extends AbstractSolver
     {
         $quantity = 0;
         if ($bag->hasBagRules()) {
-
             foreach ($bag->getBagRules() as $rule) {
-                $quantity += $rule->getQuantity() + ($this->resolveRule($rule)*$rule->getQuantity());
+                $quantity += $rule->getQuantity() + ($this->resolveRule($rule) * $rule->getQuantity());
             }
         }
 
