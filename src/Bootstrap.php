@@ -3,6 +3,7 @@
 namespace App;
 
 use App\day1\DayOneSolver;
+use App\day10\DayTenSolver;
 use App\day2\DayTwoSolver;
 use App\day3\DayThreeSolver;
 use App\day4\DayFourSolver;
@@ -25,6 +26,7 @@ class Bootstrap
         'day7' => DaySevenSolver::class,
         'day8' => DayEightSolver::class,
         'day9' => DayNineSolver::class,
+        'day10' => DayTenSolver::class,
     ];
 
     /**
