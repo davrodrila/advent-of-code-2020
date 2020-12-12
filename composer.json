@@ -11,6 +11,12 @@
             "App\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-0": {
+            "src": "tests"
+        }
+    },
+
     "require": {
         "phpunit/phpunit": "^9.5",
       "ext-json": "*"

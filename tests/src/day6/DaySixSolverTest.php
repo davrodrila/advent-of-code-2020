@@ -1,20 +1,18 @@
 <?php
 
-
 namespace src\day6;
-
 
 use App\day6\DaySixSolver;
 use App\File\FileReader;
-use PHPUnit\Framework\TestCase;
+use src\Model\BaseTestCase;
 
-class DaySixSolverTest extends TestCase
+class DaySixSolverTest extends BaseTestCase
 {
 
     public function testPartOneExampleWorks()
     {
         $groups = ['abc', 'abc', 'abac', 'aaaa', 'b'];
-
+        /** @var FileReader $fileReader */
         $fileReader = $this->getMockBuilder(FileReader::class)->disableOriginalConstructor()
             ->getMock();
         $solver = new DaySixSolver($fileReader);
@@ -39,10 +37,16 @@ class DaySixSolverTest extends TestCase
                 'b'
             ]
         ];
+        /** @var FileReader $fileReader */
         $fileReader = $this->getMockBuilder(FileReader::class)->disableOriginalConstructor()
             ->getMock();
         $solver = new DaySixSolver($fileReader);
 
         $this->assertEquals(6, array_sum($solver->processAnswersGivenByEveryone($groups)));
+    }
+
+    protected function getSolverClass(): string
+    {
+        return DaySixSolver::class;
     }
 }

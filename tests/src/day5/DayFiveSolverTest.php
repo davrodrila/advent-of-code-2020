@@ -1,14 +1,12 @@
 <?php
 
-
-namespace unit\day5;
-
+namespace src\day5;
 
 use App\day5\DayFiveSolver;
 use App\File\FileReader;
-use PHPUnit\Framework\TestCase;
+use src\Model\BaseTestCase;
 
-class DayFiveSolverTest extends TestCase
+class DayFiveSolverTest extends BaseTestCase
 {
 
     public function testFirstExampleIsResolvedCorrectly()
@@ -17,6 +15,7 @@ class DayFiveSolverTest extends TestCase
         $expectedRow = 70;
         $expectedCol = 7;
         $expectedSeatId = 567;
+        /** @var FileReader $fileReader */
         $fileReader = $this->getMockBuilder(FileReader::class)->disableOriginalConstructor()
             ->getMock();
         $solver = new DayFiveSolver($fileReader);
@@ -36,6 +35,7 @@ class DayFiveSolverTest extends TestCase
         $expectedRow = 14;
         $expectedCol = 7;
         $expectedSeatId = 119;
+        /** @var FileReader $fileReader */
         $fileReader = $this->getMockBuilder(FileReader::class)->disableOriginalConstructor()
             ->getMock();
         $solver = new DayFiveSolver($fileReader);
@@ -56,6 +56,7 @@ class DayFiveSolverTest extends TestCase
         $expectedCol = 4;
         $expectedSeatId = 820;
 
+        /** @var FileReader $fileReader */
         $fileReader = $this->getMockBuilder(FileReader::class)->disableOriginalConstructor()
             ->getMock();
 
@@ -68,5 +69,10 @@ class DayFiveSolverTest extends TestCase
         $this->assertEquals($expectedCol, $seat->getColumn());
 
         $this->assertEquals($expectedSeatId, $seat->getSeatId());
+    }
+
+    protected function getSolverClass(): string
+    {
+        return DayFiveSolver::class;
     }
 }

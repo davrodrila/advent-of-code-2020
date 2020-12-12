@@ -1,34 +1,27 @@
 <?php
 
-
 namespace src\day11;
 
-
 use App\day11\DayElevenSolver;
-use App\File\FileReader;
-use PHPUnit\Framework\TestCase;
+use src\Model\BaseTestCase;
 
-class DayElevenSolverTest extends TestCase
+class DayElevenSolverTest extends BaseTestCase
 {
     public function testFirstWebCasePermutationWorks() {
-        /** @var FileReader $fileReader */
-        $fileReader = $this->getMockBuilder(FileReader::class)->disableOriginalConstructor()->getMock();
-        $fileReader->method('readFile')
-            ->will($this->generate([
-                'L.LL.LL.LL',
-                'LLLLLLL.LL',
-                'L.L.L..L..',
-                'LLLL.LL.LL',
-                'L.LL.LL.LL',
-                'L.LLLLL.LL',
-                '..L.L.....',
-                'LLLLLLLLLL',
-                'L.LLLLLL.L',
-                'L.LLLLL.LL',
-            ]
-            ));
+        /** @var DayElevenSolver $solver */
+        $solver = $this->getDaySolverWithTestData([
+              'L.LL.LL.LL',
+              'LLLLLLL.LL',
+              'L.L.L..L..',
+              'LLLL.LL.LL',
+              'L.LL.LL.LL',
+              'L.LLLLL.LL',
+              '..L.L.....',
+              'LLLLLLLLLL',
+              'L.LLLLLL.L',
+              'L.LLLLL.LL',
+        ]);
 
-        $solver = new DayElevenSolver($fileReader);
         $ferry = $solver->getFerry();
         $ferry->arrangeSeats();
         $firstPermutation =
@@ -47,34 +40,25 @@ class DayElevenSolverTest extends TestCase
     }
 
     public function testFirstWebCaseGetsRightAmountOfOccupiedSeats() {
-        /** @var FileReader $fileReader */
-        $fileReader = $this->getMockBuilder(FileReader::class)->disableOriginalConstructor()->getMock();
-        $fileReader->method('readFile')
-            ->will($this->generate([
-                    'L.LL.LL.LL',
-                    'LLLLLLL.LL',
-                    'L.L.L..L..',
-                    'LLLL.LL.LL',
-                    'L.LL.LL.LL',
-                    'L.LLLLL.LL',
-                    '..L.L.....',
-                    'LLLLLLLLLL',
-                    'L.LLLLLL.L',
-                    'L.LLLLL.LL',
-                ]
-            ));
-
-        $solver = new DayElevenSolver($fileReader);
+        $solver = $this->getDaySolverWithTestData([
+              'L.LL.LL.LL',
+              'LLLLLLL.LL',
+              'L.L.L..L..',
+              'LLLL.LL.LL',
+              'L.LL.LL.LL',
+              'L.LLLLL.LL',
+              '..L.L.....',
+              'LLLLLLLLLL',
+              'L.LLLLLL.L',
+              'L.LLLLL.LL',
+        ]);
 
         $this->assertEquals(37, $solver->solvePartOne());
     }
 
-    private function generate(array $values)
+
+    protected function getSolverClass(): string
     {
-        return $this->returnCallback(function() use ($values) {
-            foreach ($values as $value) {
-                yield $value;
-            }
-        });
+        return DayElevenSolver::class;
     }
 }

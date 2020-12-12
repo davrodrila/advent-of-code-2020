@@ -1,26 +1,13 @@
 <?php
 
-
 namespace src\day7;
-
 
 use App\day7\DaySevenSolver;
 use App\File\FileReader;
-use PHPUnit\Framework\TestCase;
+use src\Model\BaseTestCase;
 
-class DaySevenSolverTest extends TestCase
+class DaySevenSolverTest extends BaseTestCase
 {
-
-    private function generate(array $values)
-    {
-        return $this->returnCallback(function() use ($values) {
-            foreach ($values as $value) {
-                yield $value;
-            }
-        });
-    }
-
-
     public function testFirstWebCase()
     {
         /** @var FileReader $fileReader */
@@ -61,6 +48,10 @@ class DaySevenSolverTest extends TestCase
         $solver = new DaySevenSolver($fileReader);
 
         $this->assertEquals(126, $solver->solvePartTwo());
+    }
 
+    protected function getSolverClass(): string
+    {
+        return DaySevenSolver::class;
     }
 }

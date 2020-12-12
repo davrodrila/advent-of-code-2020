@@ -1,14 +1,13 @@
 <?php
 
-
 namespace src\day8;
 
-
+use App\day8\DayEightSolver;
 use App\day8\HandheldSystem;
 use App\day8\Opcode;
-use PHPUnit\Framework\TestCase;
+use src\Model\BaseTestCase;
 
-class HandheldSystemTest extends TestCase
+class HandheldSystemTest extends BaseTestCase
 {
 
     /**
@@ -56,5 +55,10 @@ class HandheldSystemTest extends TestCase
         $handheldSystem->run();
 
         $this->assertEquals(8, $handheldSystem->getAccumulator());
+    }
+
+    protected function getSolverClass(): string
+    {
+        return DayEightSolver::class;
     }
 }

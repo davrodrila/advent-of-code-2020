@@ -1,13 +1,12 @@
 <?php
 
-
 namespace src\day9;
 
-
+use App\day9\DayNineSolver;
 use App\day9\XMAS;
-use PHPUnit\Framework\TestCase;
+use src\Model\BaseTestCase;
 
-class XMASTest extends TestCase
+class XMASTest extends BaseTestCase
 {
 
     public function testWebFirstCase()
@@ -33,5 +32,10 @@ class XMASTest extends TestCase
         $encryptionWeakness = $xmas->findEncryptionWeakness(127);
 
         $this->assertEquals(62, $encryptionWeakness);
+    }
+
+    protected function getSolverClass(): string
+    {
+        return DayNineSolver::class;
     }
 }
