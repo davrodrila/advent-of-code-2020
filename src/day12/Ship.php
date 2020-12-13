@@ -4,43 +4,13 @@
 namespace App\day12;
 
 
-class Ship
+class Ship extends NavigationSystem
 {
-    private const NORTH = 'N';
-
-    private const SOUTH = 'S';
-
-    private const WEST = 'W';
-
-    private const EAST = 'E';
-
-    private const TURN_LEFT = 'L';
-
-    private const TURN_RIGHT = 'R';
-
-    private const MOVE_FORWARD = 'F';
-
-    const TURN_FACTOR = 90;
-
     private string $facingDirection;
 
     private int $northSouthPosition = 0;
 
     private int $eastWestPosition = 0;
-
-    private const TRANSITIONS_RIGHT = [
-        "N" => "E",
-        "E" => "S",
-        "S" => "W",
-        "W" => "N"
-    ];
-
-    private const TRANSITIONS_LEFT = [
-        "N" => "W",
-        "E" => "N",
-        "S" => "E",
-        "W" => "S"
-    ];
 
     /**
      * Ship constructor.
@@ -50,9 +20,17 @@ class Ship
         $this->facingDirection = static::EAST;
     }
 
-    public function move(MovementInstruction $instruction) {
+    public function move(MovementInstruction $instruction, ?Waypoint $waypoint = null) {
+        if ($waypoint) {
+            $this->moveTowardsWaypoint($instruction, $waypoint);
+        } else {
+            $this->moveShip($instruction);
+        }
+    }
+
+    private function moveShip(MovementInstruction $instruction): void {
         if ($instruction->getMovement() === static::MOVE_FORWARD) {
-            $this->move(new MovementInstruction($this->facingDirection, $instruction->getModifier()));
+            $this->moveShip(new MovementInstruction($this->facingDirection, $instruction->getModifier()));
         } elseif ($instruction->getMovement() === static::NORTH) {
             $this->northSouthPosition += $instruction->getModifier();
         } elseif ($instruction->getMovement() === static::SOUTH) {
@@ -62,22 +40,38 @@ class Ship
         } elseif ($instruction->getMovement() === static::WEST) {
             $this->eastWestPosition -= $instruction->getModifier();
         } elseif ($instruction->getMovement() === static::TURN_RIGHT) {
-            $this->changeFacingDirections(($instruction->getModifier() / self::TURN_FACTOR), static::TRANSITIONS_RIGHT);
+            $this->changeFacingDirections($this->getNumberOfTurns($instruction->getModifier()), static::TRANSITIONS_RIGHT);
         } elseif ($instruction->getMovement() === static::TURN_LEFT) {
-            $this->changeFacingDirections(($instruction->getModifier() / self::TURN_FACTOR), static::TRANSITIONS_LEFT);
+            $this->changeFacingDirections($this->getNumberOfTurns($instruction->getModifier()), static::TRANSITIONS_LEFT);
         }
     }
 
-    private function changeFacingDirections(int $numberOfTurns, array $transitions) {
+    private function moveTowardsWaypoint(MovementInstruction $instruction, Waypoint $waypoint): void
+    {
+        if ($instruction->getMovement() === static::MOVE_FORWARD) {
+
+        }
+    }
+
+    private function changeFacingDirections(int $numberOfTurns, array $transitions): void {
         for ($i=0;$i<$numberOfTurns;$i++) {
             $this->facingDirection = $transitions[$this->facingDirection];
         }
     }
 
-
-    public function getManhattanDistance(): int
+    /**
+     * @return int
+     */
+    public function getEastWestPosition(): int
     {
-        return abs($this->northSouthPosition) + abs($this->eastWestPosition);
+        return $this->eastWestPosition;
     }
 
+    /**
+     * @return int
+     */
+    public function getNorthSouthPosition(): int
+    {
+        return $this->northSouthPosition;
+    }
 }

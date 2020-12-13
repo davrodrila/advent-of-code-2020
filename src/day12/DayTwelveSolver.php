@@ -24,7 +24,16 @@ class DayTwelveSolver extends AbstractSolver
 
     public function solvePartTwo(): string
     {
-        return '??';
+        $this->initialize();
+        $ship = new Ship();
+        $waypoint = new Waypoint();
+
+        foreach ($this->moves as $move) {
+            $waypoint->move($move);
+            $ship->move($move, $waypoint);
+        }
+
+        return $ship->getManhattanDistance();
     }
 
     private function initialize() {
