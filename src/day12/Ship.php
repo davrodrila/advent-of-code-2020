@@ -49,7 +49,11 @@ class Ship extends NavigationSystem
     private function moveTowardsWaypoint(MovementInstruction $instruction, Waypoint $waypoint): void
     {
         if ($instruction->getMovement() === static::MOVE_FORWARD) {
-
+            $offsetNS = ($waypoint->getNorthSouthPosition() * $instruction->getModifier());
+            $offsetWE = ($waypoint->getEastWestPosition() * $instruction->getModifier());
+            $this->northSouthPosition += $offsetNS;
+            $this->eastWestPosition += $offsetWE;
+            var_dump(sprintf("Ship is moving %s north and %s east", $offsetNS, $offsetWE));
         }
     }
 

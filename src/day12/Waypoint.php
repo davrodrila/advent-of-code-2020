@@ -14,6 +14,8 @@ class Waypoint extends NavigationSystem
 
     private int $northSouthPosition;
 
+    private string $facingDirection;
+
     /**
      * Waypoint constructor.
      */
@@ -21,6 +23,7 @@ class Waypoint extends NavigationSystem
     {
         $this->northSouthPosition = static::DEFAULT_NORTH_POSITION;
         $this->eastWestPosition = static::DEFAULT_EAST_POSITION;
+        $this->facingDirection = static::EAST;
     }
 
     /**
@@ -43,16 +46,29 @@ class Waypoint extends NavigationSystem
     {
         if ($instruction->getMovement() === static::NORTH) {
             $this->northSouthPosition += $instruction->getModifier();
+            var_dump(sprintf("Waypoint moves to the north %s east %s", $this->northSouthPosition, $this->eastWestPosition));
         } elseif ($instruction->getMovement() === static::SOUTH) {
             $this->northSouthPosition -= $instruction->getModifier();
+            var_dump(sprintf("Waypoint moves to the north %s east %s", $this->northSouthPosition, $this->eastWestPosition));
         } elseif ($instruction->getMovement() === static::EAST) {
             $this->eastWestPosition += $instruction->getModifier();
+            var_dump(sprintf("Waypoint moves to the north %s east %s", $this->northSouthPosition, $this->eastWestPosition));
         } elseif ($instruction->getMovement() === static::WEST) {
             $this->eastWestPosition -= $instruction->getModifier();
-        } elseif ($instruction->getMovement() === static::TURN_LEFT) {
-
-        } elseif ($instruction->getMovement() === static::TURN_RIGHT) {
-
+            var_dump(sprintf("Waypoint moves to the north %s east %s", $this->northSouthPosition, $this->eastWestPosition));
+        } elseif ($instruction->getMovement() === static::TURN_RIGHT || $instruction->getMovement() === static::TURN_LEFT) {
+            $this->rotateAroundShip($instruction);
         }
+    }
+
+    private function rotateAroundShip(MovementInstruction $instruction) {
+        $degrees = ($instruction->getMovement() === static::TURN_RIGHT ? 360 - $instruction->getModifier() : $instruction->getModifier());
+        $rads = $degrees * (pi() / 180);
+        $rotatedNorth = round($this->eastWestPosition * sin($rads) + $this->northSouthPosition * cos($rads));
+        $rotatedEast = round($this->eastWestPosition * cos($rads) - $this->northSouthPosition * sin($rads));
+        var_dump(sprintf("Rotating waypoint to north %s and east %s", $rotatedNorth, $rotatedEast));
+        $this->northSouthPosition = $rotatedNorth;
+        $this->eastWestPosition = $rotatedEast;
+
     }
 }

@@ -4,7 +4,7 @@
 namespace App\day12;
 
 
-class NavigationSystem
+abstract class NavigationSystem
 {
     protected const NORTH = 'N';
 
@@ -20,7 +20,7 @@ class NavigationSystem
 
     protected const MOVE_FORWARD = 'F';
 
-    private const TURN_FACTOR = 90;
+    protected const TURN_FACTOR = 90;
 
     protected const TRANSITIONS_RIGHT = [
         "N" => "E",
