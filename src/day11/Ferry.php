@@ -6,7 +6,7 @@ namespace App\day11;
 
 class Ferry
 {
-    const OCCUPIED_SEATS_TO_FREE = 4;
+    private int $minimumOccupiedSeats = 4;
 
     /** @var array|Seat[] $seats */
     private array $seats;
@@ -14,10 +14,12 @@ class Ferry
     /**
      * Ferry constructor.
      * @param Seat[]|array $seats
+     * @param int $minimumOccupiedSeats
      */
-    public function __construct(array $seats)
+    public function __construct(array $seats, int $minimumOccupiedSeats)
     {
         $this->seats = $seats;
+        $this->minimumOccupiedSeats = $minimumOccupiedSeats;
     }
 
     public function arrangeSeats(): int {
@@ -45,6 +47,10 @@ class Ferry
             $seat->markAsOpen();
         }
         return $seatChanges;
+    }
+
+    public function arrangeSeatsWithFirstVacants(): int {
+
     }
 
     public function canSeatBeOccupied(Seat $seat): bool {
@@ -138,6 +144,6 @@ class Ferry
             }
         }
 
-        return $occupiedSeatsNumber >= self::OCCUPIED_SEATS_TO_FREE;
+        return $occupiedSeatsNumber >= $this->minimumOccupiedSeats;
     }
 }

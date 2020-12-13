@@ -22,13 +22,13 @@ class DayElevenSolver extends AbstractSolver
          return $this->ferry->getOccupiedSeats();
     }
 
-    private function initialize() {
+    private function initialize(int $minimumOccupiedSeats = 4) {
         if (!isset($this->ferry)) {
-            $this->ferry = $this->createFerryFromInput();
+            $this->ferry = $this->createFerryFromInput($minimumOccupiedSeats);
         }
     }
 
-    private function createFerryFromInput() {
+    private function createFerryFromInput(int $minimumOccupiedSeats) {
         $row = 0;
         $seats = [];
         foreach($this->fileReader->readFile() as $line) {
@@ -40,7 +40,7 @@ class DayElevenSolver extends AbstractSolver
             $row++;
         }
 
-        return new Ferry($seats);
+        return new Ferry($seats, $minimumOccupiedSeats);
     }
 
     public function getFerry(): Ferry {
@@ -51,7 +51,8 @@ class DayElevenSolver extends AbstractSolver
 
     public function solvePartTwo(): string
     {
-        $this->initialize();
+        $this->initialize(5);
+
         return '??';
     }
 }

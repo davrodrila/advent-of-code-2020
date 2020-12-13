@@ -69,6 +69,5 @@ class Waypoint extends NavigationSystem
         var_dump(sprintf("Rotating waypoint to north %s and east %s", $rotatedNorth, $rotatedEast));
         $this->northSouthPosition = $rotatedNorth;
         $this->eastWestPosition = $rotatedEast;
-
     }
 }

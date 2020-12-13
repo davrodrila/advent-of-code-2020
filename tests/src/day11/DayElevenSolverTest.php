@@ -56,6 +56,22 @@ class DayElevenSolverTest extends BaseTestCase
         $this->assertEquals(37, $solver->solvePartOne());
     }
 
+    public function testFirstWebCaseWithFirstOccupiedSeatsRule() {
+        $solver = $this->getDaySolverWithTestData([
+              'L.LL.LL.LL',
+              'LLLLLLL.LL',
+              'L.L.L..L..',
+              'LLLL.LL.LL',
+              'L.LL.LL.LL',
+              'L.LLLLL.LL',
+              '..L.L.....',
+              'LLLLLLLLLL',
+              'L.LLLLLL.L',
+              'L.LLLLL.LL',]
+        );
+
+        $this->assertEquals(26, $solver->solvePartTwo());
+    }
 
     protected function getSolverClass(): string
     {
