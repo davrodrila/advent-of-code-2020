@@ -11,15 +11,18 @@ class Ferry
     /** @var array|Seat[] $seats */
     private array $seats;
 
+    private bool $wideLookup;
     /**
      * Ferry constructor.
      * @param Seat[]|array $seats
      * @param int $minimumOccupiedSeats
+     * @param bool $wideLookup
      */
-    public function __construct(array $seats, int $minimumOccupiedSeats)
+    public function __construct(array $seats, int $minimumOccupiedSeats, bool $wideLookup)
     {
         $this->seats = $seats;
         $this->minimumOccupiedSeats = $minimumOccupiedSeats;
+        $this->wideLookup = $wideLookup;
     }
 
     public function arrangeSeats(): int {
@@ -67,12 +70,15 @@ class Ferry
 
     private function doesTheSeatHaveAdjacentFreeSeats(Seat $seat): bool {
         $adjacentSeats = $this->getAdjacentSeats($seat);
-
-        /** @var Seat|null $adjacentSeat */
-        foreach ($adjacentSeats as $adjacentSeat) {
-            if ($adjacentSeat && $adjacentSeat->isOccupied()) {
-                return false;
+        if (!$this->wideLookup) {
+            /** @var Seat|null $adjacentSeat */
+            foreach ($adjacentSeats as $adjacentSeat) {
+                if ($adjacentSeat && $adjacentSeat->isOccupied()) {
+                    return false;
+                }
             }
+        } else {
+            
         }
 
         return true;
