@@ -7,6 +7,7 @@ use App\day10\DayTenSolver;
 use App\day11\DayElevenSolver;
 use App\day12\DayTwelveSolver;
 use App\day13\DayThirteenSolver;
+use App\day14\DayFourteenSolver;
 use App\day2\DayTwoSolver;
 use App\day3\DayThreeSolver;
 use App\day4\DayFourSolver;
@@ -33,6 +34,7 @@ class Bootstrap
         'day11' => DayElevenSolver::class,
         'day12' => DayTwelveSolver::class,
         'day13' => DayThirteenSolver::class,
+        'day14' => DayFourteenSolver::class,
     ];
 
     /**
